@@ -1,0 +1,129 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dastyar"
+        xmlns:nhotkeys="clr-namespace:NHotkey.Wpf"
+ 
+    
+        xmlns:Controls="clr-namespace:WpfPaint.Codes.Controls" xmlns:Controls1="clr-namespace:dastyar.Codes.Controls"
+    xmlns:controls="clr-namespace:Act.Codes.Controls" x:Class="dastyar.MainWindow"
+        mc:Ignorable="d" Topmost="True"
+        Title="ابزار کمک تدریس Act" Height="350" Width="525"
+    WindowStyle="None" ResizeMode="NoResize"  
+    WindowStartupLocation="CenterScreen" WindowState="Maximized" AllowsTransparency="True" Icon="act2.ico" Closing="Window_Closing">
+    <Window.Background>
+        <SolidColorBrush Color="White" Opacity="0.002"/>
+    </Window.Background>
+    <Window.Resources>
+        <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#FFF" Offset="0.0"/>
+                    <GradientStop Color="#EEE" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+        <Style TargetType="{x:Type ToggleButton}" >
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+        
+        <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="HorizontalOffset" Value="-50" />
+            <Setter Property="VerticalOffset" Value="0" />
+            <Setter Property="Background" Value="#BE1C1C1C" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <!--<Setter Property="FlowDirection" Value="RightToLeft"></Setter>-->
+            <Setter Property="ToolTipService.Placement" Value="Relative"/>
+            <Setter Property="ToolTipService.VerticalOffset" Value="15" />
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Canvas Width="200" Height="60">
+
+                            <Path x:Name="Container"
+                  Canvas.Left="0"
+                  Canvas.Top="0"                                 
+                  Margin="0"
+                  Data="M 50,10 L60,0 L70,10 L200,10 L200,100 L0,100 L0,10 L50,10" 
+                  Stroke="Black">
+
+                                <Path.Effect>
+                                    <DropShadowEffect BlurRadius="10"
+                                      Opacity="0.5"
+                                      ShadowDepth="4" />
+                                </Path.Effect>
+                                <Path.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#CF181818" Offset="0"/>
+                                        <GradientStop Color="#BE1C1C1C" Offset="1"/>
+                                    </LinearGradientBrush>
+
+                                </Path.Fill>
+                            </Path>
+                            <TextBlock Canvas.Left="50"
+                       Canvas.Top="28"
+                       Width="100"
+                       Height="50"
+                       Text="{TemplateBinding Content}"
+                       TextWrapping="Wrapwithoverflow" />
+                        </Canvas>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="local:myCommands.ClearAll" Executed="ClearAll_Executed"  ></CommandBinding>
+        <CommandBinding Command="local:myCommands.Rectangle" Executed="RectangleCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.Ellipse" Executed="EllipseCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.Line" Executed="LineCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.FreeForm" Executed="FreeFormCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.Brush" Executed="BrushCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.Arrow" Executed="ArrowCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.Delete" Executed="DeleteCmd_Executed"></CommandBinding>
+        <CommandBinding Command="local:myCommands.CancelShape" Executed="ClearShapeCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="local:myCommands.HideControlPanel" Executed="HideCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="local:myCommands.Move" Executed="MoveCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="local:myCommands.ScreenShot" Executed="ScreenShotCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="local:myCommands.Text" Executed="Text_Executed" ></CommandBinding>
+        <CommandBinding Command="local:myCommands.Record" Executed="Record_Executed" ></CommandBinding>
+
+        <!--<CommandBinding Command="local:myCommands.Transparent" Executed="TransparentCmd_Executed"  ></CommandBinding>-->
+
+
+
+
+
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <!--<KeyBinding Command="local:myCommands.Minimize" nhotkeys:HotkeyManager.RegisterGlobalHotkey="True"  ></KeyBinding>-->
+
+    </Window.InputBindings>
+    <Grid>
+        <ContentControl x:Name="container">
+            <Controls:myCanvas EditingMode="None" Cursor="Pen"  x:Name="mainCanvas" Background="Transparent" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+        </ContentControl>
+        
+
+
+        <Controls1:MainPanel x:Name="cp" HorizontalAlignment="Right" VerticalAlignment="Top" FlowDirection="RightToLeft" Margin="20" d:LayoutOverrides="Height" Style="{DynamicResource  DesignerItemStyle3}">
+           
+        </Controls1:MainPanel>
+        <!--<Image x:Name="loimg" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="100" Source="Images/tArm.png" Margin="0,0,10,0">
+
+        </Image>-->
+        <Border CornerRadius="10" Padding="10 5" x:Name="pauseMsg" Background="White" VerticalAlignment="Top"  Margin="20 55" Visibility="Hidden" HorizontalAlignment="Right">
+            <TextBlock FontWeight="Bold" Text="ضبط متوقف است" />
+        </Border>
+        <!--<controls:minPan x:Name="minPan" Width="80" FlowDirection="LeftToRight" Visibility="Hidden" HorizontalAlignment="Right" Margin="100,0" />-->
+    </Grid>
+</Window>

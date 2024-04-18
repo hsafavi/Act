@@ -1,0 +1,23 @@
+﻿<Window x:Class="Act.SetQualityWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Act"
+        mc:Ignorable="d"
+        Title="SetQualityWin" Width="600" Topmost="True" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" SizeToContent="Height" WindowStyle="None" FlowDirection="RightToLeft">
+    <StackPanel Margin="50">
+        <TextBlock FontSize="24" Margin="0 50">کیفیت خروجی فیلم را تعیین کنید:</TextBlock>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+            <Button Content="بالا" Padding="20" Click="high_clicked" />
+            <Button Grid.Column="1" Content="متوسط"  Click="medium_clicked"  />
+            <Button Grid.Column="2" Content="پایین"  Click="low_clicked"  />
+        
+        </Grid>
+    </StackPanel>
+</Window>

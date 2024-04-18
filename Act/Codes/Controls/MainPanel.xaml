@@ -1,0 +1,179 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:dastyar.Codes.Controls"
+             xmlns:Controls="clr-namespace:dastyar.Codes.Controls"
+    xmlns:controls="clr-namespace:Act.Codes.Controls" x:Class="dastyar.Codes.Controls.MainPanel"
+             mc:Ignorable="d"  Width="400"
+
+    >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush Color="#FFD6D6D6" x:Key="backColor" />
+            <SolidColorBrush Color="#FFDCDADA" x:Key="btnBackColor" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--<Border CornerRadius="15,0,15,0" Background="White" >-->
+    <Grid  VerticalAlignment="Top" Width="400">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+           
+        </Grid.RowDefinitions>
+
+
+        <Button x:Name="ShowBtn" Width="80" Height="80" Click="showHideClick" PreviewMouseMove="root_MouseMove" >
+            <Button.Template>
+                <ControlTemplate>
+                    <Border CornerRadius="70" BorderBrush="#FFAE0000" BorderThickness="2" Cursor="Hand" PreviewMouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+                        <Border.Style>
+
+                            <Style>
+                                <Setter Property="Border.Background" Value="White"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Border.IsMouseOver" Value="True" >
+
+                                        <Setter Property="Border.Background" Value="#FFFFE3CC"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.8" ShadowDepth="3" Direction="270" />
+                        </Border.Effect>
+                        <Grid>
+                            <Image Source="/Act;component/Images/tArm.png" Width="40" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <local:RibbonColorPanel x:Name="cp" Grid.Column="1" Background="White"  />
+
+        <StackPanel x:Name="toolsPan" Grid.Row="2" Background="{StaticResource backColor}">
+
+            <StackPanel Orientation="Horizontal" Name="typePan">
+                <Label x:Name="label" Content="صفحه" HorizontalAlignment="Right"  />
+
+                <ComboBox x:Name="EnvType"  HorizontalAlignment="Right" Width="82" Height="auto" VerticalAlignment="Bottom" Margin="0,-19,0,-0.001" Grid.Column="1">
+                    <ComboBoxItem Content="شفاف" x:Name="TransItem" IsSelected="True" />
+                    <ComboBoxItem Content="محیط کار" x:Name="TransferItem" />
+                    <ComboBoxItem Content="ثابت" x:Name="StaticItem" />
+                    <ComboBoxItem Content="تمام سفید ۱" x:Name="WhiteItem1" />
+                    <ComboBoxItem Content="تمام سفید ۲" x:Name="WhiteItem2" />
+                    <ComboBoxItem Content="تمام سیاه 1" x:Name="blackItem" />
+                    <ComboBoxItem Content="تمام سیاه 2" x:Name="blackItem2" />
+
+                </ComboBox>
+
+            </StackPanel>
+            <Controls:StrokeSettings HorizontalAlignment="Right" x:Name="strokeSetyings" Weight="3" Width="122" />
+
+            <UniformGrid  Columns="2" Width="110" Grid.Row="1" Background="White">
+            <Button x:Name="rectBtn" Height="30"  Width="30" RenderTransformOrigin="2.047,0.931" ToolTip="مستطیل  (Ctrl+R)" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/11.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="brushBtn"  Height="30"  Width="30" RenderTransformOrigin="2.047,0.931" ToolTip="قلم ( Ctrl+B )" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/12.png"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="arrowBtn"  Height="30" Width="30" RenderTransformOrigin="2.047,0.931" ToolTip="فلش( Ctrl+A )" Style="{DynamicResource SimpleButtonStyle}">
+
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/13.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="freeFormBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" ToolTip="شکل آزاد( Ctrl+F )" Width="30" d:LayoutOverrides="Width" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/17.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="LineBtn" Content="" Height="30"  RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="خط( Ctrl+L )" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/16.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="EllipseBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="بیضی( Ctrl+E )" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/15.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="HideBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="پنهان کردن پنل ابزار ( Ctrl+H )" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/20.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="PointerBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" ToolTip="جابجایی شکل ها( Ctrl+N )" Width="30" Style="{DynamicResource SimpleButtonStyle}" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/14.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="ScreenShotBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" ToolTip="ذخیره تصویر صفحه( Ctrl+P)" Width="30" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/26.png"/>
+                </Button.Background>
+            </Button>
+
+
+            <Button x:Name="EraserBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="پاک کن ( Ctrl+D)" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/24.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="ClearAllBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="پاک سازی ( Ctrl+Alt+C)" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/27.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="TextBtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="افزودن متن( Ctrl+T )" Style="{DynamicResource SimpleButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/t.png"/>
+                </Button.Background>
+            </Button>
+
+            <ToggleButton x:Name="Recordbtn" Content="" Height="30" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="نماگرفت- ضبط تصویر میزکار( F7 )" Style="{DynamicResource togButtonStyle}">
+                <ToggleButton.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/recording-cam.png"/>
+                </ToggleButton.Background>
+            </ToggleButton>
+            <Button x:Name="TransferBtn" Content="" RenderTransformOrigin="2.047,0.931" Width="30" ToolTip="انتقال به محیط کار (F3)" Style="{DynamicResource SimpleButtonStyle}" Height="30">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/18.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="PauseBtn" Visibility="Hidden"   RenderTransformOrigin="2.047,0.931" HorizontalAlignment="Right" Width="30" ToolTip="توقف موقت ضبط (F8)" Style="{DynamicResource SimpleButtonStyle}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
+                <Button.Background>
+                    <ImageBrush ImageSource="/Act;component/Images/Icons/raw.png"/>
+                </Button.Background>
+            </Button>
+           
+        </UniformGrid>
+
+            <Button Content="خروج" x:Name="Close" Background="{StaticResource btnBackColor}"/>
+            <Button Content="درباره نرم‌افزار" x:Name="Info" Background="{StaticResource btnBackColor}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" >
+            <Label Background="White" x:Name="DescLbl" FlowDirection="RightToLeft"  Height="auto" Padding="5,0" FontWeight="Bold" FontSize="10.667" Foreground="#FF206400" Grid.ColumnSpan="2" />
+
+            <Controls:FontSettings  x:Name="fontSettings" Background="White" VerticalAlignment="Bottom"  FlowDirection="LeftToRight" Visibility="Hidden"/>
+
+        </StackPanel>
+       
+
+
+    </Grid>
+    <!--</Border>-->
+</UserControl>
