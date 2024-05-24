@@ -3,7 +3,7 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    class PRectangle : ShapeAbstract
+    class PRectangle : ShapeBase
     {
         public override bool IsNormal
         {

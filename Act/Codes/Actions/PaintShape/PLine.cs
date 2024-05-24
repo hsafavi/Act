@@ -5,13 +5,13 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    class PLine : ShapeAbstract
+    class PLine : ShapeBase
     {
-        private bool first = true;
-        private Point p1;
-        private bool moving;
-        private Line line;
-        private Point p;
+        private bool _first = true;
+        private Point _p1;
+        private bool _moving;
+        private Line _line;
+        private Point _p;
 
         public override bool IsNormal
         {
@@ -25,33 +25,34 @@ namespace Act.Codes.Actions.PaintShape
         {
 
         }
+
         public override void End()
         {
-            canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
-            canvas.MouseLeftButtonUp -= Canvas_MouseLeftButtonUp;
-            canvas.MouseMove -= Canvas_MouseMove;
+            Canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonUp -= Canvas_MouseLeftButtonUp;
+            Canvas.MouseMove -= Canvas_MouseMove;
         }
 
         public override Shape New()
         {
-            return line;
+            return _line;
         }
 
         public override void Start()
         {
-            line = new Line();
-            canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
-            canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
-            canvas.MouseMove += Canvas_MouseMove;
+            _line = new Line();
+            Canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
+            Canvas.MouseMove += Canvas_MouseMove;
         }
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            p = e.GetPosition(canvas);
-            if (moving)
+            _p = e.GetPosition(Canvas);
+            if (_moving)
             {
-                line.X2 = p.X;
-                line.Y2 = p.Y;
+                _line.X2 = _p.X;
+                _line.Y2 = _p.Y;
             }
 
         }
@@ -63,48 +64,48 @@ namespace Act.Codes.Actions.PaintShape
 
         private void Canvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (first)
+            if (_first)
             {
-                p1 = e.GetPosition(canvas);
-                line.X1 = line.X2 = p1.X;
-                line.Y1 = line.Y2 = p1.Y;
+                _p1 = e.GetPosition(Canvas);
+                _line.X1 = _line.X2 = _p1.X;
+                _line.Y1 = _line.Y2 = _p1.Y;
 
-                first = false;
-                moving = true;
-                canvas.Children.Add(line);
+                _first = false;
+                _moving = true;
+                Canvas.Children.Add(_line);
             }
             else
             {
-                first = true;
+                _first = true;
                 End();
-                if (p1.X < p.X)
+                if (_p1.X < _p.X)
                 {
-                    myCanvas.SetLeft(line, p1.X);
-                    line.X1 = 0;
-                    line.X2 -= p1.X;
+                    myCanvas.SetLeft(_line, _p1.X);
+                    _line.X1 = 0;
+                    _line.X2 -= _p1.X;
                 }
                 else
                 {
-                    myCanvas.SetLeft(line, p.X);
-                    line.X1 -= p.X;
-                    line.X2 = 0;
+                    myCanvas.SetLeft(_line, _p.X);
+                    _line.X1 -= _p.X;
+                    _line.X2 = 0;
                 }
 
-                if (p1.Y < p.Y)
+                if (_p1.Y < _p.Y)
                 {
-                    myCanvas.SetTop(line, p1.Y);
-                    line.Y1 = 0;
-                    line.Y2 -= p1.Y;
+                    myCanvas.SetTop(_line, _p1.Y);
+                    _line.Y1 = 0;
+                    _line.Y2 -= _p1.Y;
                 }
                 else
                 {
-                    myCanvas.SetTop(line, p.Y);
-                    line.Y1 -= p.Y;
-                    line.Y2 = 0;
+                    myCanvas.SetTop(_line, _p.Y);
+                    _line.Y1 -= _p.Y;
+                    _line.Y2 = 0;
                 }
-                line.Width = Math.Abs(line.X2 - line.X1);
-                line.Height = Math.Abs(line.Y2 - line.Y1);
-                line.Stretch = System.Windows.Media.Stretch.Uniform;
+                _line.Width = Math.Abs(_line.X2 - _line.X1);
+                _line.Height = Math.Abs(_line.Y2 - _line.Y1);
+                _line.Stretch = System.Windows.Media.Stretch.Uniform;
                 onCompleted();
             }
 

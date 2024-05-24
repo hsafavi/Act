@@ -5,7 +5,7 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    class PArrow : ShapeAbstract
+    class PArrow : ShapeBase
     {
         private bool first = true;
         private Point p1;
@@ -25,11 +25,12 @@ namespace Act.Codes.Actions.PaintShape
         {
 
         }
+
         public override void End()
         {
-            canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
-            canvas.MouseLeftButtonUp -= Canvas_MouseLeftButtonUp;
-            canvas.MouseMove -= Canvas_MouseMove;
+            Canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonUp -= Canvas_MouseLeftButtonUp;
+            Canvas.MouseMove -= Canvas_MouseMove;
         }
 
         public override Shape New()
@@ -44,16 +45,16 @@ namespace Act.Codes.Actions.PaintShape
 
             arrow.HeadHeight = arrow.StrokeThickness + 8;
             arrow.HeadWidth = arrow.StrokeThickness + 35;
-            canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
-            canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
-            canvas.MouseMove += Canvas_MouseMove;
+            Canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
+            Canvas.MouseMove += Canvas_MouseMove;
             arrow.Fill = null;
 
         }
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            p = e.GetPosition(canvas);
+            p = e.GetPosition(Canvas);
             if (moving)
             {
                 arrow.X2 = p.X;
@@ -71,13 +72,13 @@ namespace Act.Codes.Actions.PaintShape
         {
             if (first)
             {
-                p1 = e.GetPosition(canvas);
+                p1 = e.GetPosition(Canvas);
                 arrow.X1 = arrow.X2 = p1.X;
                 arrow.Y1 = arrow.Y2 = p1.Y;
                 arrow.Fill = null;
                 first = false;
                 moving = true;
-                canvas.Children.Add(arrow);
+                Canvas.Children.Add(arrow);
             }
             else
             {

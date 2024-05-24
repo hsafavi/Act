@@ -15,7 +15,7 @@ namespace Act.Codes.Actions
     {
         //   public enum ShapeType { Rectangle,Ellipse,Line,Curve,Freeform}
         //   ShapeType type;
-        private readonly PaintShape.ShapeAbstract _paintShape;
+        private readonly PaintShape.ShapeBase _paintShape;
         private Shape _shape;
         private bool _pressed;
         private double _xPont, _yPoint;
@@ -36,7 +36,7 @@ namespace Act.Codes.Actions
 
         internal override string Description => "در حین ترسیم شکل، برای انصراف کلید Esc را فشار دهید";
 
-        public ShapeAction(myCanvas canvas, ShapeAbstract paintShape, RibbonColorPanel colorPanel, StrokeSettings lineSettings) : base(canvas, false)
+        public ShapeAction(myCanvas canvas, ShapeBase paintShape, RibbonColorPanel colorPanel, StrokeSettings lineSettings) : base(canvas, false)
         {
             this._colorPanel = colorPanel;
             //  this.type = type;
@@ -57,10 +57,10 @@ namespace Act.Codes.Actions
         public override void End()
         {
             _paintShape.End();
-            canvas.MouseLeftButtonDown -= Canvas_MouseDown;
-            canvas.MouseMove -= Canvas_MouseMove;
-            canvas.MouseUp -= Canvas_MouseLeftButtonUp;
-            canvas.MouseLeftButtonUp -= Shape_MouseUp;
+            Canvas.MouseLeftButtonDown -= Canvas_MouseDown;
+            Canvas.MouseMove -= Canvas_MouseMove;
+            Canvas.MouseUp -= Canvas_MouseLeftButtonUp;
+            Canvas.MouseLeftButtonUp -= Shape_MouseUp;
             _paintShape.Completed -= PaintShape_Completed;
             _lineSettings.Changed -= StrokeSettings_Changed;
             _colorPanel.ColorChanged -= ColorPanel_ColorChanged;
@@ -70,15 +70,15 @@ namespace Act.Codes.Actions
 
         protected override void Start()
         {
-            canvas.MaxHeight = canvas.ActualHeight;
-            canvas.MaxWidth = canvas.ActualWidth;
+            Canvas.MaxHeight = Canvas.ActualHeight;
+            Canvas.MaxWidth = Canvas.ActualWidth;
             //    canvas.SelectionResized += Canvas_SelectionResized;
             if (_paintShape.IsNormal)
             {
 
-                canvas.MouseLeftButtonDown += Canvas_MouseDown;
-                canvas.MouseMove += Canvas_MouseMove;
-                canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
+                Canvas.MouseLeftButtonDown += Canvas_MouseDown;
+                Canvas.MouseMove += Canvas_MouseMove;
+                Canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
 
             }
             else
@@ -96,13 +96,13 @@ namespace Act.Codes.Actions
 
         }
 
-        private void PaintShape_Completed(ShapeAbstract pshape)
+        private void PaintShape_Completed(ShapeBase pshape)
         {
             // if (Created)
             {
                 _pressed = false;
                 if (_shape.ActualWidth <= 1 && _shape.ActualHeight <= 1)
-                    canvas.Children.Remove(_shape);
+                    Canvas.Children.Remove(_shape);
                 else
                 {
 
@@ -125,7 +125,7 @@ namespace Act.Codes.Actions
 
 
                 //       Created = true;
-                canvas.MouseLeftButtonDown += Canvas_AnormalMouseLeftButtonDown;
+                Canvas.MouseLeftButtonDown += Canvas_AnormalMouseLeftButtonDown;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Act.Codes.Actions
 
 
 
-            canvas.MouseLeftButtonDown -= Canvas_AnormalMouseLeftButtonDown;
+            Canvas.MouseLeftButtonDown -= Canvas_AnormalMouseLeftButtonDown;
 
 
             //shape = pshape.New();
@@ -158,8 +158,8 @@ namespace Act.Codes.Actions
 
         private void Canvas_SelectionResized(object sender, EventArgs e)
         {
-            canvas.MaxHeight = canvas.ActualHeight;
-            canvas.MaxWidth = canvas.ActualWidth;
+            Canvas.MaxHeight = Canvas.ActualHeight;
+            Canvas.MaxWidth = Canvas.ActualWidth;
         }
 
         private void Canvas_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -172,7 +172,7 @@ namespace Act.Codes.Actions
         {
             if (_pressed)
             {
-                var p = e.GetPosition(canvas);
+                var p = e.GetPosition(Canvas);
                 if (p.X > _xPont)
                 {
                     _shape.Width = p.X - _xPont;
@@ -200,10 +200,10 @@ namespace Act.Codes.Actions
         {
             //       if (!isMDownOnMouse)
             {
-                if (canvas.SelectedShape != null)
+                if (Canvas.SelectedShape != null)
                 {
-                    Selector.SetIsSelected(canvas.SelectedShape, false);
-                    canvas.SelectedShape = null;
+                    Selector.SetIsSelected(Canvas.SelectedShape, false);
+                    Canvas.SelectedShape = null;
                 }
                 if (!_pressed)
                 {
@@ -213,27 +213,27 @@ namespace Act.Codes.Actions
                     SetColor();
                     _pressed = true;
                     //  Created = true;
-                    var p = e.GetPosition(canvas);
+                    var p = e.GetPosition(Canvas);
                     _xPont = p.X;
                     _yPoint = p.Y;
                     _left = _xPont;
                     _top = _yPoint;
                     InkCanvas.SetLeft(_shape, _xPont);
                     InkCanvas.SetTop(_shape, _yPoint);
-                    canvas.Children.Add(_shape);
+                    Canvas.Children.Add(_shape);
                 }
 
                 else
                 {
                     _pressed = false;
                     if (_shape.ActualWidth == 1 && _shape.ActualHeight == 1)
-                        canvas.Children.Remove(_shape);
+                        Canvas.Children.Remove(_shape);
                     else
                     {
                         Created = true;
 
                         AttachEvents();
-                        canvas.SelectedShape = _shape;
+                        Canvas.SelectedShape = _shape;
                     }
 
                 }
@@ -244,18 +244,18 @@ namespace Act.Codes.Actions
 
         private void Cc_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (canvas.SelectedShape != null)
-                Selector.SetIsSelected(canvas.SelectedShape, false);
+            if (Canvas.SelectedShape != null)
+                Selector.SetIsSelected(Canvas.SelectedShape, false);
             var tmp = (Shape)sender;
             Selector.SetIsSelected(tmp, true);
-            canvas.SelectedShape = tmp;
+            Canvas.SelectedShape = tmp;
         }
 
         private void MakeMovable()
         {
             _shape.MouseLeftButtonDown += Shape_LMouseBDown;
             _shape.MouseMove += Shape_MouseMove;
-            canvas.MouseUp += Shape_MouseUp;
+            Canvas.MouseUp += Shape_MouseUp;
         }
 
         private void Shape_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -285,14 +285,14 @@ namespace Act.Codes.Actions
         private void CopyToPicture()
         {
             
-            canvas.Picture = SnapShotPng();
-            canvas.Children.Clear();
+            Canvas.Picture = SnapShotPng();
+            Canvas.Children.Clear();
             
         }
 
         private ImageBrush SnapShotPng()
         {
-            double zoom = canvas.Zoom;
+            double zoom = Canvas.Zoom;
 
             double actualHeight = _shape.RenderSize.Height;
             double actualWidth = _shape.RenderSize.Width;
@@ -300,9 +300,9 @@ namespace Act.Codes.Actions
             double renderHeight = actualHeight * zoom;
             double renderWidth = actualWidth * zoom;
 
-            RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)canvas.ActualWidth, (int)canvas.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)Canvas.ActualWidth, (int)Canvas.ActualHeight, 96, 96, PixelFormats.Pbgra32);
 
-            VisualBrush sourceBrush = new VisualBrush(canvas);
+            VisualBrush sourceBrush = new VisualBrush(Canvas);
 
             DrawingVisual drawingVisual = new DrawingVisual();
             DrawingContext drawingContext = drawingVisual.RenderOpen();
@@ -312,9 +312,9 @@ namespace Act.Codes.Actions
 
                 //     drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
 
-                drawingContext.DrawRectangle(canvas.Background, null, new Rect(new Point(0, 0), new Point(canvas.ActualWidth, canvas.ActualHeight)));
+                drawingContext.DrawRectangle(Canvas.Background, null, new Rect(new Point(0, 0), new Point(Canvas.ActualWidth, Canvas.ActualHeight)));
 
-                drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Size(canvas.Width, canvas.Height)));
+                drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Size(Canvas.Width, Canvas.Height)));
             }
             renderTarget.Render(drawingVisual);
             return new ImageBrush(BitmapFrame.Create(renderTarget));
@@ -333,7 +333,7 @@ namespace Act.Codes.Actions
         public override void Cancel()
         {
 
-            canvas.Children.Remove(_shape);
+            Canvas.Children.Remove(_shape);
             _pressed = false;
         }
 
@@ -341,8 +341,8 @@ namespace Act.Codes.Actions
         {
 
             _shape.MouseLeftButtonDown += Shape_MouseLeftButtonDown;
-            canvas.MouseMove += Canvas_MouseMove4ShapeDragOrDelete;
-            canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp1;
+            Canvas.MouseMove += Canvas_MouseMove4ShapeDragOrDelete;
+            Canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp1;
         }
 
         private void Canvas_MouseLeftButtonUp1(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -359,7 +359,7 @@ namespace Act.Codes.Actions
             if (_startDragging)
             {
 
-                var p = e.GetPosition(canvas);
+                var p = e.GetPosition(Canvas);
 
                 InkCanvas.SetLeft(_draggingItem, InkCanvas.GetLeft(_draggingItem) + p.X - _startDraggingPoint.X);
 
@@ -373,10 +373,10 @@ namespace Act.Codes.Actions
         private void Shape_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
-            if (canvas.CurrentAction is MoveAction)
+            if (Canvas.CurrentAction is MoveAction)
             {
                 _startDragging = true;
-                _startDraggingPoint = e.GetPosition(canvas);
+                _startDraggingPoint = e.GetPosition(Canvas);
                 _draggingItem = (Shape)sender;
             }
 
@@ -386,7 +386,7 @@ namespace Act.Codes.Actions
         {
 
 
-            return new ShapeAction(canvas, (ShapeAbstract)System.Activator.CreateInstance(_paintShape.GetType()), _colorPanel, _lineSettings);
+            return new ShapeAction(Canvas, (ShapeBase)System.Activator.CreateInstance(_paintShape.GetType()), _colorPanel, _lineSettings);
         }
 
     }

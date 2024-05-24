@@ -34,11 +34,11 @@ namespace Act.Codes.Actions
 
         public override void End()
         {
-            foreach (var c in canvas.Children)
+            foreach (var c in Canvas.Children)
             {
                 var s = c as Shape;
                 if (s != null)
-                    s.Cursor = canvas.Cursor;
+                    s.Cursor = Canvas.Cursor;
             }
 
             //colorPanel.ColorChanged -= ColorPanel_ColorChanged;
@@ -50,7 +50,7 @@ namespace Act.Codes.Actions
             //var d = canvas.DefaultDrawingAttributes;
             //d.Color = colorPanel.MainColor;
 
-            foreach (var c in canvas.Children)
+            foreach (var c in Canvas.Children)
             {
                 var s = c as Shape;
                 if (s != null)
@@ -76,7 +76,7 @@ namespace Act.Codes.Actions
 
         public override PaintAction MakeNew()
         {
-            return new MoveAction(canvas);
+            return new MoveAction(Canvas);
         }
         //private void copyToPicture()
         //{

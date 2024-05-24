@@ -140,11 +140,10 @@
     <Compile Include="Codes\Actions\PaintShape\ellipse.cs" />
     <Compile Include="Codes\Actions\PaintShape\FreeForm.cs" />
     <Compile Include="Codes\Actions\PaintShape\PArrow.cs" />
-    <Compile Include="Codes\Actions\PaintShape\PArrow_temp.cs" />
     <Compile Include="Codes\Actions\PaintShape\PLine.cs" />
     <Compile Include="Codes\Actions\PaintShape\PRectangle.cs" />
     <Compile Include="Codes\Actions\PaintShape\PRoundedRectangle.cs" />
-    <Compile Include="Codes\Actions\PaintShape\ShapeAbstract.cs" />
+    <Compile Include="Codes\Actions\PaintShape\ShapeBase.cs" />
     <Compile Include="Codes\Actions\ShapeAction - Copy.cs" />
     <Compile Include="Codes\Actions\ShapeAction.cs" />
     <Compile Include="Codes\Actions\TextAction.cs" />

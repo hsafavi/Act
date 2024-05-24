@@ -29,7 +29,7 @@ namespace Act.Codes.Actions
 
         private void ColorPanel_ColorChanged(RibbonColorPanel sender)
         {
-            var d = canvas.DefaultDrawingAttributes;
+            var d = Canvas.DefaultDrawingAttributes;
             d.Color = colorPanel.MainColor;
 
         }
@@ -41,27 +41,27 @@ namespace Act.Codes.Actions
 
         public override void End()
         {
-            canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
+            Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
             colorPanel.ColorChanged -= ColorPanel_ColorChanged;
             strokeSettings.Changed -= StrokeSettings_Changed;
-            canvas.UseCustomCursor = false;
+            Canvas.UseCustomCursor = false;
         }
 
         protected override void Start()
         {
             colorPanel.ColorChanged += ColorPanel_ColorChanged;
             strokeSettings.Changed += StrokeSettings_Changed;
-            canvas.UseCustomCursor = true;
+            Canvas.UseCustomCursor = true;
             if (strokeSettings.Weight < 1)
                 strokeSettings.Weight = 1;
-            var d = canvas.DefaultDrawingAttributes;
+            var d = Canvas.DefaultDrawingAttributes;
 
             d.Color = colorPanel.MainColor;
             d.Width =  strokeSettings.Weight;
             d.Height = d.Width;
             d.FitToCurve=true;
             d.StylusTipTransform = new System.Windows.Media.Matrix(1, 0, 0, 1.5, 0, 0);
-            canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.Ink;
+            Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.Ink;
 
 
 
@@ -69,7 +69,7 @@ namespace Act.Codes.Actions
 
         private void StrokeSettings_Changed(StrokeSettings sender)
         {
-            var d = canvas.DefaultDrawingAttributes;
+            var d = Canvas.DefaultDrawingAttributes;
             if (strokeSettings.Weight < 1)
                 strokeSettings.Weight = 1;
             d.Width = d.Height = strokeSettings.Weight;
@@ -84,7 +84,7 @@ namespace Act.Codes.Actions
 
         public override PaintAction MakeNew()
         {
-            return new BrushAction(canvas, colorPanel, strokeSettings);
+            return new BrushAction(Canvas, colorPanel, strokeSettings);
         }
         //private void copyToPicture()
         //{

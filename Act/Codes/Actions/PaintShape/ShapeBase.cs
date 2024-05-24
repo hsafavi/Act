@@ -3,14 +3,15 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    public abstract class ShapeAbstract
+    public abstract class ShapeBase
     {
-        protected myCanvas canvas;
-        public delegate void CompletedEH(ShapeAbstract pshape);
+        protected myCanvas Canvas { get; }
+
+        public delegate void CompletedEH(ShapeBase pshape);
         public event CompletedEH Completed;
 
         public abstract void Start();
-        public abstract void End();
+        public  abstract void End();
         public abstract Shape New();
         public abstract bool IsNormal { get; }
         protected void onCompleted()
@@ -18,9 +19,9 @@ namespace Act.Codes.Actions.PaintShape
             if (Completed != null)
                 Completed(this);
         }
-        public ShapeAbstract(myCanvas canvas)
+        public ShapeBase(myCanvas canvas)
         {
-            this.canvas = canvas;
+            this.Canvas = canvas;
             Start();
 
         }

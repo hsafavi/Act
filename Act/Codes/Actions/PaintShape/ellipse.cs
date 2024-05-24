@@ -3,7 +3,7 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    class PEllipse : ShapeAbstract
+    class PEllipse : ShapeBase
     {
         public PEllipse(myCanvas canvas) : base(canvas)
         {

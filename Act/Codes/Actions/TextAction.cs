@@ -65,26 +65,26 @@ namespace Act.Codes.Actions
             //rtb.Width = cc.Width-10;
             if (string.IsNullOrEmpty(new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd).Text))
             {
-                canvas.Children.Remove(cc);
+                Canvas.Children.Remove(cc);
             }
 
             fontSettings.FontChanged -= FontSettings_FontChanged;
             rtb.Selection.Changed -= Selection_Changed;
-            canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
             colorPanel.ColorChanged -= ColorPanel_ColorChanged;
-            canvas.MouseMove -= Layer_MouseMove;
+            Canvas.MouseMove -= Layer_MouseMove;
         }
 
         protected override void Start()
         {
-            canvas.CurrentAction = this;
+            Canvas.CurrentAction = this;
             init();
 
             fontSettings.FontChanged += FontSettings_FontChanged;
 
-            canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
+            Canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
             colorPanel.ColorChanged += ColorPanel_ColorChanged;
-            canvas.MouseMove += Layer_MouseMove;
+            Canvas.MouseMove += Layer_MouseMove;
         }
 
         private void init()
@@ -182,7 +182,7 @@ namespace Act.Codes.Actions
         {
             if (pressed)
             {
-                var p = e.GetPosition(canvas);
+                var p = e.GetPosition(Canvas);
                 if (p.X > Xpont)
                 {
                     whiteBoundary.Width = blackBoundary.Width = p.X - Xpont;
@@ -226,7 +226,7 @@ namespace Act.Codes.Actions
                 //catch(Exception x) { MessageBox.Show(x.ToString()); }
                 if (string.IsNullOrEmpty(t.Replace("\r\n", "")))
                 {
-                    canvas.Children.Remove(cc);
+                    Canvas.Children.Remove(cc);
                 }
                 init();
                 Created = false;
@@ -246,25 +246,25 @@ namespace Act.Codes.Actions
                 fontSettings.SetInputProperties(rtb.Selection, rtb.CaretPosition.Paragraph);
                 pressed = true;
                 //Created = true;
-                var p = e.GetPosition(canvas);
+                var p = e.GetPosition(Canvas);
                 Xpont = p.X;
                 Ypoint = p.Y;
                 //left = Xpont;
                 //top = Ypoint;
                 myCanvas.SetLeft(blackBoundary, Xpont);
                 myCanvas.SetTop(blackBoundary, Ypoint);
-                canvas.Children.Add(blackBoundary);
+                Canvas.Children.Add(blackBoundary);
                 myCanvas.SetLeft(whiteBoundary, Xpont);
                 myCanvas.SetTop(whiteBoundary, Ypoint);
-                canvas.Children.Add(whiteBoundary);
+                Canvas.Children.Add(whiteBoundary);
             }
             else
             {
                 pressed = false;
                 if (blackBoundary.ActualWidth == 1 && blackBoundary.ActualHeight == 1)
                 {
-                    canvas.Children.Remove(blackBoundary);
-                    canvas.Children.Remove(whiteBoundary);
+                    Canvas.Children.Remove(blackBoundary);
+                    Canvas.Children.Remove(whiteBoundary);
                 }
                 else
                 {
@@ -287,8 +287,8 @@ namespace Act.Codes.Actions
                     cc.Width = blackBoundary.ActualWidth;
                     cc.Height = blackBoundary.ActualHeight;
 
-                    canvas.Children.Remove(blackBoundary);
-                    canvas.Children.Remove(whiteBoundary);
+                    Canvas.Children.Remove(blackBoundary);
+                    Canvas.Children.Remove(whiteBoundary);
 
 
                     //baundary.Stretch = Stretch.Fill;
@@ -296,7 +296,7 @@ namespace Act.Codes.Actions
                     //baundary.IsHitTestVisible = false;
 
                     cc.RenderTransform = new RotateTransform(0);
-                    canvas.Children.Add(cc);
+                    Canvas.Children.Add(cc);
 
                     Created = true;
 
@@ -321,7 +321,7 @@ namespace Act.Codes.Actions
 
         public override PaintAction MakeNew()
         {
-            return new TextAction(canvas, fontSettings, colorPanel);
+            return new TextAction(Canvas, fontSettings, colorPanel);
         }
     }
 }

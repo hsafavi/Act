@@ -4,7 +4,7 @@ using Act.Codes.Controls;
 
 namespace Act.Codes.Actions.PaintShape
 {
-    class PFreeForm : ShapeAbstract
+    class PFreeForm : ShapeBase
     {
         private byte downCount = 0;
         private Point p1;
@@ -25,11 +25,12 @@ namespace Act.Codes.Actions.PaintShape
         {
 
         }
+
         public override void End()
         {
             downCount = 0;
-            canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
-            canvas.MouseMove -= Canvas_MouseMove;
+            Canvas.MouseLeftButtonDown -= Canvas_MouseLeftButtonDown;
+            Canvas.MouseMove -= Canvas_MouseMove;
         }
 
         public override Shape New()
@@ -39,8 +40,8 @@ namespace Act.Codes.Actions.PaintShape
             //polylinePath = new Path();
             //polylinePath.StrokeLineJoin = PenLineJoin.Bevel;
             //downCount = 0;
-            canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
-            canvas.MouseMove += Canvas_MouseMove;
+            Canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
+            Canvas.MouseMove += Canvas_MouseMove;
             //return polylinePath;
             return polygon;
         }
@@ -59,7 +60,7 @@ namespace Act.Codes.Actions.PaintShape
                 // polylineSGM.Points[polylineSGM.Points.Count-1] = e.GetPosition(canvas);
                 //p2 = e.GetPosition(canvas);
 
-                polygon.Points[polygon.Points.Count - 1] = e.GetPosition(canvas);
+                polygon.Points[polygon.Points.Count - 1] = e.GetPosition(Canvas);
             }
 
 
@@ -84,7 +85,7 @@ namespace Act.Codes.Actions.PaintShape
             }
             else if (downCount == 0)
             {
-                p1 = e.GetPosition(canvas);
+                p1 = e.GetPosition(Canvas);
                 //var myPathFigure = new PathFigure();
                 //var myPathSegmentCollection = new PathSegmentCollection();
                 //var myPathFigureCollection = new PathFigureCollection();
@@ -106,7 +107,7 @@ namespace Act.Codes.Actions.PaintShape
                 polygon.Points.Add(p1);
                 p2 = new Point(p1.X, p1.Y);
                 polygon.Points.Add(p2);
-                canvas.Children.Add(polygon);
+                Canvas.Children.Add(polygon);
                 downCount++;
             }
             else
@@ -117,7 +118,7 @@ namespace Act.Codes.Actions.PaintShape
                 //polylineSGM.Points.Add(p2);
                 //   polygon.Points.Remove(p2);
 
-                polygon.Points.Add(e.GetPosition(canvas));
+                polygon.Points.Add(e.GetPosition(Canvas));
 
                 //  polygon.Points.Add(e.GetPosition(canvas));
 

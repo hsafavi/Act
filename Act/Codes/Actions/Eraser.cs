@@ -32,7 +32,7 @@ namespace Act.Codes.Actions
 
         private void ColorPanel_ColorChanged(RibbonColorPanel sender)
         {
-            var d = canvas.DefaultDrawingAttributes;
+            var d = Canvas.DefaultDrawingAttributes;
             //d.Color = colorPanel.MainColor;
 
 
@@ -45,20 +45,20 @@ namespace Act.Codes.Actions
 
         public override void End()
         {
-            canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
+            Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
             //colorPanel.ColorChanged -= ColorPanel_ColorChanged;
             //     canvas.MouseMove -= Canvas_MouseMove;
-            foreach (UIElement e in canvas.Children)
+            foreach (UIElement e in Canvas.Children)
                 e.MouseMove -= E_MouseMove;
-            Keyboard.RemovePreviewKeyDownHandler(canvas.Parent, Canvas_KeyDown);
-            Keyboard.RemovePreviewKeyUpHandler(canvas.Parent, Canvas_KeyUp);
-            canvas.Cursor = cursor;
+            Keyboard.RemovePreviewKeyDownHandler(Canvas.Parent, Canvas_KeyDown);
+            Keyboard.RemovePreviewKeyUpHandler(Canvas.Parent, Canvas_KeyUp);
+            Canvas.Cursor = cursor;
         }
 
         private void E_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
-                canvas.Children.Remove((UIElement)sender);
+                Canvas.Children.Remove((UIElement)sender);
         }
 
         protected override void Start()
@@ -68,13 +68,13 @@ namespace Act.Codes.Actions
             //inkPresenter = GetVisualChild<InkPresenter>(canvas);
 
 
-            Keyboard.AddPreviewKeyDownHandler(canvas.Parent, Canvas_KeyDown);
-            Keyboard.AddPreviewKeyUpHandler(canvas.Parent, Canvas_KeyUp);
-            canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.EraseByPoint;
-            cursor = canvas.Cursor;
+            Keyboard.AddPreviewKeyDownHandler(Canvas.Parent, Canvas_KeyDown);
+            Keyboard.AddPreviewKeyUpHandler(Canvas.Parent, Canvas_KeyUp);
+            Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.EraseByPoint;
+            cursor = Canvas.Cursor;
             Uri uri = new Uri("/images/eraser.cur", UriKind.Relative);
-            canvas.Cursor = new Cursor(Act.App.GetResourceStream(uri).Stream);
-            foreach (UIElement e in canvas.Children)
+            Canvas.Cursor = new Cursor(Act.App.GetResourceStream(uri).Stream);
+            foreach (UIElement e in Canvas.Children)
                 e.MouseMove += E_MouseMove;
 
         }
@@ -83,8 +83,8 @@ namespace Act.Codes.Actions
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.EraseByPoint;
-                canvas.UseCustomCursor = false;
+                Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.EraseByPoint;
+                Canvas.UseCustomCursor = false;
             }
         }
 
@@ -92,8 +92,8 @@ namespace Act.Codes.Actions
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
             {
-                canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
-                canvas.UseCustomCursor = true;
+                Canvas.EditingMode = System.Windows.Controls.InkCanvasEditingMode.None;
+                Canvas.UseCustomCursor = true;
             }
 
         }
@@ -102,7 +102,7 @@ namespace Act.Codes.Actions
         {
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                VisualTreeHelper.HitTest(canvas, null, new HitTestResultCallback(myHTresult), new PointHitTestParameters(e.GetPosition(canvas)));
+                VisualTreeHelper.HitTest(Canvas, null, new HitTestResultCallback(myHTresult), new PointHitTestParameters(e.GetPosition(Canvas)));
 
 
                 //var o = VisualTreeHelper.HitTest(canvas, e.GetPosition(canvas));
@@ -124,7 +124,7 @@ namespace Act.Codes.Actions
             if (s != null)
             {
 
-                canvas.Children.Remove(s);
+                Canvas.Children.Remove(s);
             }
 
 
@@ -144,7 +144,7 @@ namespace Act.Codes.Actions
 
         public override PaintAction MakeNew()
         {
-            return new EraserAction(canvas);
+            return new EraserAction(Canvas);
         }
         public T GetVisualChild<T>(Visual parent) where T : Visual
         {
