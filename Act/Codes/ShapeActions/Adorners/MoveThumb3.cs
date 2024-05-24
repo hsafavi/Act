@@ -3,11 +3,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace DiagramDesigner3
+namespace Act.Codes.ShapeActions.Adorners
 {
-    public class MoveThumb : Thumb
+    public class MoveThumb3 : Thumb
     {
-        public MoveThumb()
+        public MoveThumb3()
         {
             DragDelta += new DragDeltaEventHandler(this.MoveThumb_DragDelta);
         }

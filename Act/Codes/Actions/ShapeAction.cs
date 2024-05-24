@@ -1,110 +1,54 @@
-﻿using dastyar.Codes.Controls;
-using System;
+﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfPaint.Codes.Actions.PaintShape;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Actions.PaintShape;
+using Act.Codes.Controls;
 
-namespace WpfPaint.Codes.Actions
+namespace Act.Codes.Actions
 {
 
     public class ShapeAction : PaintAction
     {
         //   public enum ShapeType { Rectangle,Ellipse,Line,Curve,Freeform}
         //   ShapeType type;
-        PaintShape.ShapeAbstract pshape;
-        private Shape shape;
-        bool pressed;
-        double Xpont, Ypoint;
-        private Point shape_downPoint;
-        private bool isMDownOnMouse;
-        private double left;
-        private double top;
-        private RibbonColorPanel colorPanel;
+        private readonly PaintShape.ShapeAbstract _paintShape;
+        private Shape _shape;
+        private bool _pressed;
+        private double _xPont, _yPoint;
+        private Point _shapeDownPoint;
+        private bool _isMDownOnMouse;
+        private double _left;
+        private double _top;
+        private readonly RibbonColorPanel _colorPanel;
 
-        StrokeSettings lineSettings;
-        private Rect rect;
-        private static bool startDragging;
-        private static Point startDraggingPoint;
-        private static Shape DraggingItem;
+        private readonly StrokeSettings _lineSettings;
+        private Rect _rect;
+        private static bool _startDragging;
+        private static Point _startDraggingPoint;
+        private static Shape _draggingItem;
 
         //   ContentControl cc ;
         public bool Created { get; private set; }
 
-        internal override string Description
-        {
-            get
-            {
-                return "در حین ترسیم شکل، برای انصراف کلید Esc را فشار دهید";
-            }
-        }
+        internal override string Description => "در حین ترسیم شکل، برای انصراف کلید Esc را فشار دهید";
 
-        public ShapeAction(myCanvas canvas, ShapeAbstract pshape, RibbonColorPanel colorPanel, StrokeSettings lineSettings) : base(canvas, false)
+        public ShapeAction(myCanvas canvas, ShapeAbstract paintShape, RibbonColorPanel colorPanel, StrokeSettings lineSettings) : base(canvas, false)
         {
-            this.colorPanel = colorPanel;
+            this._colorPanel = colorPanel;
             //  this.type = type;
             canvas.CurrentAction = this;
-            this.pshape = pshape;
-            this.lineSettings = lineSettings;
-            shape = pshape.New();
+            this._paintShape = paintShape;
+            this._lineSettings = lineSettings;
+            if (paintShape != null) _shape = paintShape.New();
 
             Start();
         }
-        public ShapeAction Copy()
-        {
-            //if (canvas.Children.Contains(cc))
-            //    return this;
-            /*else */
-            return null;
 
-        }
-        public void Paste()
-        {
-            //layer = new myCanvas();
-            //layer.Background = new SolidColorBrush(Colors.Transparent);
-            //layer.Width = canvas.Width;
-            //layer.Height = canvas.Height;
-            //canvas.Children.Add(layer);
-            //canvas.MaxHeight = canvas.ActualHeight;
-            //canvas.MaxWidth = canvas.ActualWidth;
-            ////    canvas.SelectionResized += Canvas_SelectionResized;
-            //if (pshape.IsNormal)
-            //{
-
-            //    canvas.MouseLeftButtonDown += Canvas_MouseDown;
-            //    canvas.MouseMove += Canvas_MouseMove;
-            //    canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
-
-            //}
-            //else
-            //{
-
-            //    SetStroke();
-            //    SetColor();
-            //    pshape.Completed += Pshape_Completed;
-
-
-            //}
-            //Created = true;
-            //pressed = false;
-            //lineSettings.Changed += StrokeSettings_Changed;
-            //colorPanel.ColorChanged += ColorPanel_ColorChanged;
-            //cc.Style = (Style)Application.Current.FindResource("DesignerItemStyle");
-            //if (canvas.Children.Contains(layer))
-            //{
-            //    End();
-
-            //}
-            //Start();
-            //Created = true;
-            //pressed = false;
-            //Selector.SetIsSelected(sh, true);
-            //canvas.Children.Add(cc);
-
-        }
+      
         private void StrokeSettings_Changed(StrokeSettings sender)
         {
             SetStroke();
@@ -112,43 +56,24 @@ namespace WpfPaint.Codes.Actions
 
         public override void End()
         {
-            pshape.End();
+            _paintShape.End();
             canvas.MouseLeftButtonDown -= Canvas_MouseDown;
             canvas.MouseMove -= Canvas_MouseMove;
             canvas.MouseUp -= Canvas_MouseLeftButtonUp;
             canvas.MouseLeftButtonUp -= Shape_MouseUp;
-            pshape.Completed -= Pshape_Completed;
-            lineSettings.Changed -= StrokeSettings_Changed;
-            colorPanel.ColorChanged -= ColorPanel_ColorChanged;
+            _paintShape.Completed -= PaintShape_Completed;
+            _lineSettings.Changed -= StrokeSettings_Changed;
+            _colorPanel.ColorChanged -= ColorPanel_ColorChanged;
 
 
         }
 
         protected override void Start()
         {
-            //switch (type)
-            //{
-            //    case ShapeType.Rectangle:
-            //        pshape = new PRectangle(canvas);
-            //        break;
-            //    case ShapeType.Ellipse:
-            //        pshape = new PEllipse(canvas);
-            //        break;
-            //    case ShapeType.Line:
-            //        pshape = new PLine(canvas);
-            //        break;
-            //    case ShapeType.Curve:
-            //        pshape = new PCurve(canvas);
-            //        break;
-            //    case ShapeType.Freeform:
-            //        pshape = new PFreeForm(canvas);
-            //        break;
-            //}
-
             canvas.MaxHeight = canvas.ActualHeight;
             canvas.MaxWidth = canvas.ActualWidth;
             //    canvas.SelectionResized += Canvas_SelectionResized;
-            if (pshape.IsNormal)
+            if (_paintShape.IsNormal)
             {
 
                 canvas.MouseLeftButtonDown += Canvas_MouseDown;
@@ -161,67 +86,37 @@ namespace WpfPaint.Codes.Actions
 
                 SetStroke();
                 SetColor();
-                pshape.Completed += Pshape_Completed;
+                _paintShape.Completed += PaintShape_Completed;
 
 
             }
 
-            lineSettings.Changed += StrokeSettings_Changed;
-            colorPanel.ColorChanged += ColorPanel_ColorChanged;
+            _lineSettings.Changed += StrokeSettings_Changed;
+            _colorPanel.ColorChanged += ColorPanel_ColorChanged;
 
         }
 
-        private void Pshape_Completed(ShapeAbstract pshape)
+        private void PaintShape_Completed(ShapeAbstract pshape)
         {
             // if (Created)
             {
-                pressed = false;
-                if (shape.ActualWidth <= 1 && shape.ActualHeight <= 1)
-                    canvas.Children.Remove(shape);
+                _pressed = false;
+                if (_shape.ActualWidth <= 1 && _shape.ActualHeight <= 1)
+                    canvas.Children.Remove(_shape);
                 else
                 {
 
-                    rect = shape.RenderedGeometry.Bounds;
-                    //left = rect.Left;
-                    //top = rect.Top;
-                    //al = AdornerLayer.GetAdornerLayer(shape);
-                    //ra = new adorners.ResizingAdorner(shape,rect);
-                    //if (al != null)
-                    //{
-                    //    al.Add(ra);
-                    //    MakeMovable();
-                    //}
-                    //Selector.SetIsSelected(shape, true);
-                    //cc = new ContentControl();
+                    _rect = _shape.RenderedGeometry.Bounds;
+                    
+                    Rect r = _shape.RenderedGeometry.Bounds;
 
-                    //myCanvas.SetLeft(cc, rect.Left - lineSettings.Weight / 2);
-                    //myCanvas.SetTop(cc, rect.Top - lineSettings.Weight / 2);
-                    //cc.MinHeight = 1;
-                    //cc.MinWidth = 1;
-                    //cc.Width = rect.Width + lineSettings.Weight - 1;
-                    //cc.Height = rect.Height + lineSettings.Weight - 1;
-                    //canvas.Children.Remove(shape);
-                    //shape.Stretch = Stretch.Fill;
-                    //shape.Width = shape.Height = double.NaN;
-                    ////cc.Width = cc.RenderSize.Width;
-                    ////cc.Height = cc.RenderSize.Height;
-                    //shape.IsHitTestVisible = false;
-                    //cc.Content = shape;
-                    //cc.RenderTransform = new RotateTransform(0);
-                    //canvas.Children.Add(cc);
-                    //cc.Width = cc.RenderSize.Width;
-                    //cc.Height = cc.RenderSize.Height;
-                    //shape.Style = (Style)Application.Current.FindResource("DesignerItemStyle2");
-                    //Selector.SetIsSelected(shape, true);
-                    Rect r = shape.RenderedGeometry.Bounds;
-
-                    myCanvas.SetLeft(shape, r.Left - shape.StrokeThickness / 2);
-                    myCanvas.SetTop(shape, r.Top - shape.StrokeThickness / 2);
-                    shape.Width = r.Width + shape.StrokeThickness;
-                    shape.Height = r.Height + shape.StrokeThickness;
+                    myCanvas.SetLeft(_shape, r.Left - _shape.StrokeThickness / 2);
+                    myCanvas.SetTop(_shape, r.Top - _shape.StrokeThickness / 2);
+                    _shape.Width = r.Width + _shape.StrokeThickness;
+                    _shape.Height = r.Height + _shape.StrokeThickness;
                     AttachEvents();
                     pshape.Start();
-                    shape = pshape.New();
+                    _shape = pshape.New();
 
                     SetStroke();
                     SetColor();
@@ -237,7 +132,7 @@ namespace WpfPaint.Codes.Actions
 
         private void Canvas_AnormalMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var p = e.GetPosition(shape);
+            var p = e.GetPosition(_shape);
 
 
 
@@ -257,8 +152,8 @@ namespace WpfPaint.Codes.Actions
 
         private void SetColor()
         {
-            shape.Stroke = new SolidColorBrush(colorPanel.MainColor);
-            shape.Fill = new SolidColorBrush(colorPanel.secoundColor);
+            _shape.Stroke = new SolidColorBrush(_colorPanel.MainColor);
+            _shape.Fill = new SolidColorBrush(_colorPanel.secoundColor);
         }
 
         private void Canvas_SelectionResized(object sender, EventArgs e)
@@ -275,28 +170,28 @@ namespace WpfPaint.Codes.Actions
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (pressed)
+            if (_pressed)
             {
                 var p = e.GetPosition(canvas);
-                if (p.X > Xpont)
+                if (p.X > _xPont)
                 {
-                    shape.Width = p.X - Xpont;
+                    _shape.Width = p.X - _xPont;
                 }
                 else
                 {
-                    left = p.X;
-                    myCanvas.SetLeft(shape, p.X);
-                    shape.Width = Xpont - p.X;
+                    _left = p.X;
+                    InkCanvas.SetLeft(_shape, p.X);
+                    _shape.Width = _xPont - p.X;
                 }
-                if (p.Y > Ypoint)
+                if (p.Y > _yPoint)
                 {
-                    shape.Height = p.Y - Ypoint;
+                    _shape.Height = p.Y - _yPoint;
                 }
                 else
                 {
-                    top = p.Y;
-                    myCanvas.SetTop(shape, p.Y);
-                    shape.Height = Ypoint - p.Y;
+                    _top = p.Y;
+                    InkCanvas.SetTop(_shape, p.Y);
+                    _shape.Height = _yPoint - p.Y;
                 }
             }
         }
@@ -310,63 +205,35 @@ namespace WpfPaint.Codes.Actions
                     Selector.SetIsSelected(canvas.SelectedShape, false);
                     canvas.SelectedShape = null;
                 }
-                if (!pressed)
+                if (!_pressed)
                 {
-                    shape = pshape.New();
+                    _shape = _paintShape.New();
 
                     SetStroke();
                     SetColor();
-                    pressed = true;
+                    _pressed = true;
                     //  Created = true;
                     var p = e.GetPosition(canvas);
-                    Xpont = p.X;
-                    Ypoint = p.Y;
-                    left = Xpont;
-                    top = Ypoint;
-                    myCanvas.SetLeft(shape, Xpont);
-                    myCanvas.SetTop(shape, Ypoint);
-                    canvas.Children.Add(shape);
+                    _xPont = p.X;
+                    _yPoint = p.Y;
+                    _left = _xPont;
+                    _top = _yPoint;
+                    InkCanvas.SetLeft(_shape, _xPont);
+                    InkCanvas.SetTop(_shape, _yPoint);
+                    canvas.Children.Add(_shape);
                 }
 
                 else
                 {
-                    pressed = false;
-                    if (shape.ActualWidth == 1 && shape.ActualHeight == 1)
-                        canvas.Children.Remove(shape);
+                    _pressed = false;
+                    if (_shape.ActualWidth == 1 && _shape.ActualHeight == 1)
+                        canvas.Children.Remove(_shape);
                     else
                     {
-                        // al = AdornerLayer.GetAdornerLayer(shape);
-                        //ra = new adorners.ResizingAdorner(shape, shape.RenderedGeometry.Bounds);
-                        //if (al != null)
-                        //{
-                        //    al.Add(ra);
-                        //    MakeMovable();
-                        //}
-
-                        // cc.RenderSize = shape.RenderSize;
-                        //cc = new ContentControl();
-                        //cc.MouseDoubleClick += Cc_MouseLeftButtonDown;
-                        //myCanvas.SetLeft(cc, myCanvas.GetLeft(shape));
-                        //myCanvas.SetTop(cc, myCanvas.GetTop(shape));
-                        //cc.MinHeight = 1;
-                        //cc.MinWidth = 1;
-                        //cc.Width = shape.ActualWidth;
-                        //cc.Height = shape.ActualHeight;
-                        //canvas.Children.Remove(shape);
-                        //shape.Stretch = Stretch.Fill;
-                        //shape.Width = shape.Height = double.NaN;
-                        //shape.IsHitTestVisible = false;
-                        //cc.Content = shape;
-                        //cc.RenderTransform = new RotateTransform(0);
-                        //canvas.Children.Add(cc);
                         Created = true;
 
-                        //shape.Style = (Style)Application.Current.FindResource("DesignerItemStyle2");
-
-
-                        //Selector.SetIsSelected(shape, true);
                         AttachEvents();
-                        canvas.SelectedShape = shape;
+                        canvas.SelectedShape = _shape;
                     }
 
                 }
@@ -386,71 +253,49 @@ namespace WpfPaint.Codes.Actions
 
         private void MakeMovable()
         {
-            shape.MouseLeftButtonDown += Shape_LMouseBDown;
-            shape.MouseMove += Shape_MouseMove;
+            _shape.MouseLeftButtonDown += Shape_LMouseBDown;
+            _shape.MouseMove += Shape_MouseMove;
             canvas.MouseUp += Shape_MouseUp;
         }
 
         private void Shape_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            isMDownOnMouse = false;
+            _isMDownOnMouse = false;
         }
 
         private void Shape_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            var p = e.GetPosition(shape);
-            if (isMDownOnMouse)
+            var p = e.GetPosition(_shape);
+            if (_isMDownOnMouse)
             {
-                left += p.X - shape_downPoint.X;
-                myCanvas.SetLeft(shape, left);
-                top += p.Y - shape_downPoint.Y;
-                myCanvas.SetTop(shape, top);
+                _left += p.X - _shapeDownPoint.X;
+                InkCanvas.SetLeft(_shape, _left);
+                _top += p.Y - _shapeDownPoint.Y;
+                InkCanvas.SetTop(_shape, _top);
 
             }
         }
 
         private void Shape_LMouseBDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            shape_downPoint = e.GetPosition(shape);
-            isMDownOnMouse = true;
+            _shapeDownPoint = e.GetPosition(_shape);
+            _isMDownOnMouse = true;
 
         }
-        private void copyToPicture()
+        private void CopyToPicture()
         {
-
-            //Selector.SetIsSelected(cc, false);
-
-            //left = myCanvas.GetLeft(cc);
-            //top = myCanvas.GetTop(cc);
-
-            // var z=canvas.Zoom;
-            // canvas.Zoom = 1;
-            // RenderTargetBitmap rtb2 =
-            //new RenderTargetBitmap((int)width, (int)height, 96d, 96d, PixelFormats.Default);
-            // rtb2.Render(canvas);
-            // var imgs = new ImageBrush(BitmapFrame.Create(rtb2));
-            // imgs.AlignmentX = AlignmentX.Left;
-
-            // canvas.Picture = imgs;
-            // canvas.Zoom = z;
-            canvas.Picture = SnapShotPNG();
+            
+            canvas.Picture = SnapShotPng();
             canvas.Children.Clear();
-
-            // tmoCv.Children.Add(shape);
-
-            // RenderTargetBitmap rtb =
-            //new RenderTargetBitmap((int)tmoCv.Width, (int)tmoCv.Height, 96d, 96d, PixelFormats.Default);
-            // rtb.Render(tmoCv);
-            // imgs = new ImageBrush(BitmapFrame.Create(rtb));
-            // canvas.Picture = imgs;
+            
         }
 
-        private ImageBrush SnapShotPNG()
+        private ImageBrush SnapShotPng()
         {
             double zoom = canvas.Zoom;
 
-            double actualHeight = shape.RenderSize.Height;
-            double actualWidth = shape.RenderSize.Width;
+            double actualHeight = _shape.RenderSize.Height;
+            double actualWidth = _shape.RenderSize.Width;
 
             double renderHeight = actualHeight * zoom;
             double renderWidth = actualWidth * zoom;
@@ -481,28 +326,28 @@ namespace WpfPaint.Codes.Actions
 
         private void SetStroke()
         {
-            if (shape != null)
-                shape.StrokeThickness = lineSettings.Weight;
+            if (_shape != null)
+                _shape.StrokeThickness = _lineSettings.Weight;
         }
 
         public override void Cancel()
         {
 
-            canvas.Children.Remove(shape);
-            pressed = false;
+            canvas.Children.Remove(_shape);
+            _pressed = false;
         }
 
         private void AttachEvents()
         {
 
-            shape.MouseLeftButtonDown += Shape_MouseLeftButtonDown;
+            _shape.MouseLeftButtonDown += Shape_MouseLeftButtonDown;
             canvas.MouseMove += Canvas_MouseMove4ShapeDragOrDelete;
             canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp1;
         }
 
         private void Canvas_MouseLeftButtonUp1(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            startDragging = false;
+            _startDragging = false;
             //if (canvas.CurrentAction != null)
             //    canvas.CurrentAction.MakeNew();
 
@@ -511,15 +356,15 @@ namespace WpfPaint.Codes.Actions
         private void Canvas_MouseMove4ShapeDragOrDelete(object sender, System.Windows.Input.MouseEventArgs e)
         {
 
-            if (startDragging)
+            if (_startDragging)
             {
 
                 var p = e.GetPosition(canvas);
 
-                myCanvas.SetLeft(DraggingItem, myCanvas.GetLeft(DraggingItem) + p.X - startDraggingPoint.X);
+                InkCanvas.SetLeft(_draggingItem, InkCanvas.GetLeft(_draggingItem) + p.X - _startDraggingPoint.X);
 
-                myCanvas.SetTop(DraggingItem, myCanvas.GetTop(DraggingItem) + p.Y - startDraggingPoint.Y);
-                startDraggingPoint = p;
+                InkCanvas.SetTop(_draggingItem, InkCanvas.GetTop(_draggingItem) + p.Y - _startDraggingPoint.Y);
+                _startDraggingPoint = p;
             }
 
 
@@ -530,9 +375,9 @@ namespace WpfPaint.Codes.Actions
 
             if (canvas.CurrentAction is MoveAction)
             {
-                startDragging = true;
-                startDraggingPoint = e.GetPosition(canvas);
-                DraggingItem = (Shape)sender;
+                _startDragging = true;
+                _startDraggingPoint = e.GetPosition(canvas);
+                _draggingItem = (Shape)sender;
             }
 
         }
@@ -541,7 +386,7 @@ namespace WpfPaint.Codes.Actions
         {
 
 
-            return new ShapeAction(canvas, (ShapeAbstract)System.Activator.CreateInstance(pshape.GetType()), colorPanel, lineSettings);
+            return new ShapeAction(canvas, (ShapeAbstract)System.Activator.CreateInstance(_paintShape.GetType()), _colorPanel, _lineSettings);
         }
 
     }

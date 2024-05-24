@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NHotkey
+namespace Act.Codes.NHOTKEY
 {
     static class NativeMethods
     {

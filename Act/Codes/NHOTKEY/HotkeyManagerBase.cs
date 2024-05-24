@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NHotkey
+namespace Act.Codes.NHOTKEY
 {
     public abstract class HotkeyManagerBase
     {

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
-namespace dastyar.Codes
+namespace Act.Codes
 {
     class Utilities
     {

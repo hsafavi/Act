@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NHotkey
+namespace Act.Codes.NHOTKEY
 {
     public class HotkeyEventArgs : EventArgs
     {

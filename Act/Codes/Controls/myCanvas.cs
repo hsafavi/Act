@@ -4,8 +4,9 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Act.Codes.Actions;
 
-namespace WpfPaint.Codes.Controls
+namespace Act.Codes.Controls
 {
     public class myCanvas : InkCanvas
     {
@@ -25,13 +26,13 @@ namespace WpfPaint.Codes.Controls
                 LayoutTransform = new ScaleTransform(zoom, zoom);
             }
         }
-        WpfPaint.Codes.Actions.PaintAction currentAction;
-        public WpfPaint.Codes.Actions.PaintAction CurrentAction
+        PaintAction currentAction;
+        public PaintAction CurrentAction
         {
             get { return currentAction; }
             set { if (currentAction != null) currentAction.End(); var p = currentAction; currentAction = value; if (ActionChanged != null) ActionChanged(this, currentAction); }
         }
-        internal delegate void ActionChangedEH(myCanvas canvas, WpfPaint.Codes.Actions.PaintAction previousAction);
+        internal delegate void ActionChangedEH(myCanvas canvas, PaintAction previousAction);
         internal event ActionChangedEH ActionChanged;
         public myCanvas()
         {

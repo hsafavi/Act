@@ -1,7 +1,7 @@
 ﻿using System.Windows.Shapes;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace WpfPaint.Codes.Actions.PaintShape
+namespace Act.Codes.Actions.PaintShape
 {
     class PEllipse : ShapeAbstract
     {

@@ -1,7 +1,6 @@
-﻿using dastyar.Codes.Controls;
-using WpfPaint.Codes.Controls;
+﻿using Act.Codes.Controls;
 
-namespace WpfPaint.Codes.Actions
+namespace Act.Codes.Actions
 {
     public class BrushAction : PaintAction
     {

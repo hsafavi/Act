@@ -2,8 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
-namespace dastyar.Codes.Controls
+namespace Act.Codes.Controls
 {
     /// <summary>
     /// Interaction logic for RcPanel.xaml

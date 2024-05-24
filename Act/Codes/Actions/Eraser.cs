@@ -1,12 +1,11 @@
-﻿using dastyar.Codes.Controls;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace WpfPaint.Codes.Actions
+namespace Act.Codes.Actions
 {
     public class EraserAction : PaintAction
     {

@@ -2,15 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:dastyar.Codes.Controls"
-             xmlns:Controls="clr-namespace:dastyar.Codes.Controls" x:Class="dastyar.Codes.Controls.ControllerPanel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Act.Codes.Controls"
+             x:Class="Act.Codes.Controls.ControllerPanel"
              mc:Ignorable="d" Width="447.273" Height="212.843" Background="White"
 
     >
     <!--<Border CornerRadius="15,0,15,0" Background="White" >-->
     <Grid Height="116.883" VerticalAlignment="Top">
-        <local:RibbonColorPanel x:Name="cp"   Height="60" Margin="13,28,-13,28.883"/>
+        <controls:RibbonColorPanel x:Name="cp"   Height="60" Margin="13,28,-13,28.883"/>
         <Button x:Name="rectBtn"  HorizontalAlignment="Left" Height="30" Margin="10,0,0,-16.117" VerticalAlignment="Bottom" Width="30" RenderTransformOrigin="2.047,0.931" ToolTip="مستطیل  (Ctrl+R)" Style="{DynamicResource SimpleButtonStyle}">
             <Button.Background>
                 <ImageBrush ImageSource="/Act;component/Images/Icons/11.png"/>
@@ -43,7 +43,7 @@
                 <ImageBrush ImageSource="/Act;component/Images/Icons/15.png"/>
             </Button.Background>
         </Button>
-        <Controls:StrokeSettings HorizontalAlignment="Right" x:Name="strokeSetyings" Weight="3"  Margin="0,0,21,-13.117" VerticalAlignment="Bottom"  Width="122" Height="30" />
+        <controls:StrokeSettings HorizontalAlignment="Right" x:Name="strokeSetyings" Weight="3"  Margin="0,0,21,-13.117" VerticalAlignment="Bottom"  Width="122" Height="30" />
         <Button x:Name="HideBtn" Content="" Height="30" Margin="147.903,0,0,-51" VerticalAlignment="Bottom" RenderTransformOrigin="2.047,0.931" HorizontalAlignment="Left" Width="30" ToolTip="پنهان کردن پنل ابزار ( Ctrl+H )" Style="{DynamicResource SimpleButtonStyle}">
             <Button.Background>
                 <ImageBrush ImageSource="/Act;component/Images/Icons/20.png"/>
@@ -95,7 +95,7 @@
                 <ImageBrush ImageSource="/Act;component/Images/Icons/t.png"/>
             </Button.Background>
         </Button>
-        <Controls:FontSettings x:Name="fontSettings" Background="White" Margin="100.196,0,205.537,-144.324" VerticalAlignment="Bottom"  FlowDirection="LeftToRight" Visibility="Hidden"/>
+        <controls:FontSettings x:Name="fontSettings" Background="White" Margin="100.196,0,205.537,-144.324" VerticalAlignment="Bottom"  FlowDirection="LeftToRight" Visibility="Hidden"/>
         <Label x:Name="DescLbl" FlowDirection="RightToLeft"  Height="41" Margin="68,0,8,-97.117" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="10.667" Foreground="#FF206400"/>
         <Label x:Name="label1" Content="توضیح" Height="31" Margin="19,0,0,-88.117" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="44"/>
         <ToggleButton x:Name="Recordbtn" Content="" Height="30" Margin="220,103,0,-16.117" VerticalAlignment="Top" RenderTransformOrigin="2.047,0.931" HorizontalAlignment="Left" Width="30" ToolTip="نماگرفت- ضبط تصویر میزکار( F7 )" Style="{DynamicResource togButtonStyle}">

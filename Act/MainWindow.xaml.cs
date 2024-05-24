@@ -1,9 +1,4 @@
-﻿using Act;
-using dastyar.Codes.Actions;
-using Microsoft.Win32;
-using NHotkey;
-using ScreenRecorderLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -13,11 +8,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using WpfPaint.Codes.Actions;
-using WpfPaint.Codes.Actions.PaintShape;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Actions;
+using Act.Codes.Actions.PaintShape;
+using Act.Codes.Commands;
+using Act.Codes.Controls;
+using Act.Codes.NHOTKEY;
+using Microsoft.Win32;
+using ScreenRecorderLib;
 
-namespace dastyar
+namespace Act
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -53,42 +52,42 @@ namespace dastyar
             cp.cp.secoundColor = Colors.Transparent;
             Selector.SetIsSelected(cp, true);
 
-            cp.rectBtn.Command = myCommands.Rectangle;
+            cp.rectBtn.Command = MyCommands.Rectangle;
             string invalidKeys=null;
             try
             {
-                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace("Transfer", Key.F3, ModifierKeys.None, OnTransfer);
+                HotkeyManager.Current.AddOrReplace("Transfer", Key.F3, ModifierKeys.None, OnTransfer);
             }
             catch { invalidKeys += "F3 - "; }
             try
             {
-                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace("ClearShape", Key.Escape, ModifierKeys.None, OnClearShape);
+                HotkeyManager.Current.AddOrReplace("ClearShape", Key.Escape, ModifierKeys.None, OnClearShape);
             }
             catch { invalidKeys += "Esc - "; }
             try
             {
-                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace("Record", Key.F7, ModifierKeys.None, OnRecord);
+                HotkeyManager.Current.AddOrReplace("Record", Key.F7, ModifierKeys.None, OnRecord);
             }
             catch { invalidKeys += "F7 - "; }
             try
             {
-                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace("Pause", Key.F8, ModifierKeys.None, OnPause);
+                HotkeyManager.Current.AddOrReplace("Pause", Key.F8, ModifierKeys.None, OnPause);
             }
             catch { invalidKeys += "F8"; }
             if(invalidKeys!=null)
             {
                 MessageBox.Show("برخی کلیدها بخاطر آنکه قبل از این به یک برنامه در حال اجرا اختصاص داده شده اند در این برنامه اجرا نمی شوند: "+invalidKeys," اکت",MessageBoxButton.OK,MessageBoxImage.Warning,0,MessageBoxOptions.RightAlign|MessageBoxOptions.RtlReading);
             }
-            cp.brushBtn.Command = myCommands.Brush;
-            cp.arrowBtn.Command = myCommands.Arrow;
-            cp.freeFormBtn.Command = myCommands.FreeForm;
-            cp.LineBtn.Command = myCommands.Line;
-            cp.EllipseBtn.Command = myCommands.Ellipse;
-            cp.HideBtn.Command = myCommands.HideControlPanel;
-            cp.PointerBtn.Command = myCommands.Move;
-            cp.ScreenShotBtn.Command = myCommands.ScreenShot;
-            cp.EraserBtn.Command = myCommands.Delete;
-            cp.Recordbtn.Command = myCommands.Record;
+            cp.brushBtn.Command = MyCommands.Brush;
+            cp.arrowBtn.Command = MyCommands.Arrow;
+            cp.freeFormBtn.Command = MyCommands.FreeForm;
+            cp.LineBtn.Command = MyCommands.Line;
+            cp.EllipseBtn.Command = MyCommands.Ellipse;
+            cp.HideBtn.Command = MyCommands.HideControlPanel;
+            cp.PointerBtn.Command = MyCommands.Move;
+            cp.ScreenShotBtn.Command = MyCommands.ScreenShot;
+            cp.EraserBtn.Command = MyCommands.Delete;
+            cp.Recordbtn.Command = MyCommands.Record;
             cp.Close.Click += Close_Click;
             cp.TransferBtn.Click += TransferBtn_Click;
             cp.WhiteItem1.Selected += WhiteItem_Selected;
@@ -101,8 +100,8 @@ namespace dastyar
 
             cp.Info.Click += Info_Click;
             //minPan.ShowBtn.Click += ShowBtn_Click;
-            cp.ClearAllBtn.Command = myCommands.ClearAll;
-            cp.TextBtn.Command = myCommands.Text;
+            cp.ClearAllBtn.Command = MyCommands.ClearAll;
+            cp.TextBtn.Command = MyCommands.Text;
             canvas.ActionChanged += Canvas_ActionChanged;
             _ = new BrushAction(canvas, cp.cp, cp.strokeSetyings);
             _ = new BrushAction(whiteCanvas1, cp.cp, cp.strokeSetyings);
@@ -172,7 +171,7 @@ namespace dastyar
             }
         }
 
-        private void Canvas_ActionChanged(WpfPaint.Codes.Controls.myCanvas canvas, PaintAction previousAction)
+        private void Canvas_ActionChanged(myCanvas canvas, PaintAction previousAction)
         {
             cp.DescLbl.Content = canvas.CurrentAction.Description;
         }
@@ -253,7 +252,7 @@ namespace dastyar
         private void TransferItem_Selected(object sender, RoutedEventArgs e)
         {
             this.Background.Opacity = 0;
-            NHotkey.Wpf.HotkeyManager.Current.Remove("ClearShape");
+            HotkeyManager.Current.Remove("ClearShape");
             isInWorkSpace = true;
             //cp.Visibility = Visibility.Hidden;
             cp.Hide();
@@ -274,7 +273,7 @@ namespace dastyar
             }
             else
             {
-                NHotkey.Wpf.HotkeyManager.Current.AddOrReplace("ClearShape", Key.Escape, ModifierKeys.None, OnClearShape);
+                HotkeyManager.Current.AddOrReplace("ClearShape", Key.Escape, ModifierKeys.None, OnClearShape);
                 isInWorkSpace = false;
 
                 //if (WindowState != WindowState.Minimized)

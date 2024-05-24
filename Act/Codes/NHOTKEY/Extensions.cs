@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace NHotkey.Wpf
+namespace Act.Codes.NHOTKEY
 {
     static class Extensions
     {

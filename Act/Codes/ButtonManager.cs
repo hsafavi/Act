@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls.Primitives;
 
-namespace dastyar.Codes
+namespace Act.Codes
 {
     class ToggleButtonManager
     {

@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace DiagramDesigner
+namespace Act.Codes.ShapeActions.Adorners
 {
     public class MoveThumb : Thumb
     {

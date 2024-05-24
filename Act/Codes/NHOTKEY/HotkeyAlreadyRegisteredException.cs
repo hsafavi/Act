@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
-namespace NHotkey
+namespace Act.Codes.NHOTKEY
 {
     [Serializable]
     public class HotkeyAlreadyRegisteredException : Exception

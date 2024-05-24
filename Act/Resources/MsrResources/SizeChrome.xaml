@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:s="clr-namespace:DiagramDesigner">
+                    xmlns:msrAdorners="clr-namespace:Act.Codes.MsrAdorners">
 
-  <s:DoubleFormatConverter x:Key="doubleFormatConverter"/>
+  <msrAdorners:DoubleFormatConverter x:Key="doubleFormatConverter"/>
 
-  <Style TargetType="{x:Type s:MsrSizeChrome}">
+  <Style TargetType="{x:Type msrAdorners:MsrSizeChrome}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type s:MsrSizeChrome}">
+        <ControlTemplate TargetType="{x:Type msrAdorners:MsrSizeChrome}">
           <Grid SnapsToDevicePixels="True">
             <Path Stroke="Red"
                   StrokeThickness="1"

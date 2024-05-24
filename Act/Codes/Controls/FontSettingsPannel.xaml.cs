@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace dastyar.Codes.Controls
+namespace Act.Codes.Controls
 {
     /// <summary>
     /// Interaction logic for FontSettings.xaml

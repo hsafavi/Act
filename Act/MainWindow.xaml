@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:dastyar"
-        xmlns:nhotkeys="clr-namespace:NHotkey.Wpf"
- 
-    
-        xmlns:Controls="clr-namespace:WpfPaint.Codes.Controls" xmlns:Controls1="clr-namespace:dastyar.Codes.Controls"
-    xmlns:controls="clr-namespace:Act.Codes.Controls" x:Class="dastyar.MainWindow"
+
+
+        xmlns:controls="clr-namespace:Act.Codes.Controls"
+    xmlns:commands="clr-namespace:Act.Codes.Commands"
+    x:Class="Act.MainWindow"
         mc:Ignorable="d" Topmost="True"
         Title="ابزار کمک تدریس Act" Height="350" Width="525"
     WindowStyle="None" ResizeMode="NoResize"  
@@ -82,20 +81,20 @@
     </Window.Resources>
 
     <Window.CommandBindings>
-        <CommandBinding Command="local:myCommands.ClearAll" Executed="ClearAll_Executed"  ></CommandBinding>
-        <CommandBinding Command="local:myCommands.Rectangle" Executed="RectangleCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.Ellipse" Executed="EllipseCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.Line" Executed="LineCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.FreeForm" Executed="FreeFormCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.Brush" Executed="BrushCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.Arrow" Executed="ArrowCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.Delete" Executed="DeleteCmd_Executed"></CommandBinding>
-        <CommandBinding Command="local:myCommands.CancelShape" Executed="ClearShapeCmd_Executed" ></CommandBinding>
-        <CommandBinding Command="local:myCommands.HideControlPanel" Executed="HideCmd_Executed" ></CommandBinding>
-        <CommandBinding Command="local:myCommands.Move" Executed="MoveCmd_Executed" ></CommandBinding>
-        <CommandBinding Command="local:myCommands.ScreenShot" Executed="ScreenShotCmd_Executed" ></CommandBinding>
-        <CommandBinding Command="local:myCommands.Text" Executed="Text_Executed" ></CommandBinding>
-        <CommandBinding Command="local:myCommands.Record" Executed="Record_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.ClearAll" Executed="ClearAll_Executed"  ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Rectangle" Executed="RectangleCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Ellipse" Executed="EllipseCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Line" Executed="LineCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.FreeForm" Executed="FreeFormCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Brush" Executed="BrushCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Arrow" Executed="ArrowCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Delete" Executed="DeleteCmd_Executed"></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.CancelShape" Executed="ClearShapeCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.HideControlPanel" Executed="HideCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Move" Executed="MoveCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.ScreenShot" Executed="ScreenShotCmd_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Text" Executed="Text_Executed" ></CommandBinding>
+        <CommandBinding Command="commands:MyCommands.Record" Executed="Record_Executed" ></CommandBinding>
 
         <!--<CommandBinding Command="local:myCommands.Transparent" Executed="TransparentCmd_Executed"  ></CommandBinding>-->
 
@@ -110,14 +109,14 @@
     </Window.InputBindings>
     <Grid>
         <ContentControl x:Name="container">
-            <Controls:myCanvas EditingMode="None" Cursor="Pen"  x:Name="mainCanvas" Background="Transparent" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+            <controls:myCanvas EditingMode="None" Cursor="Pen"  x:Name="mainCanvas" Background="Transparent" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
         </ContentControl>
         
 
 
-        <Controls1:MainPanel x:Name="cp" HorizontalAlignment="Right" VerticalAlignment="Top" FlowDirection="RightToLeft" Margin="20" d:LayoutOverrides="Height" Style="{DynamicResource  DesignerItemStyle3}">
+        <controls:MainPanel x:Name="cp" HorizontalAlignment="Right" VerticalAlignment="Top" FlowDirection="RightToLeft" Margin="20" d:LayoutOverrides="Height" Style="{DynamicResource  DesignerItemStyle3}">
            
-        </Controls1:MainPanel>
+        </controls:MainPanel>
         <!--<Image x:Name="loimg" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="100" Source="Images/tArm.png" Margin="0,0,10,0">
 
         </Image>-->

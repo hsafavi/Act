@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace DiagramDesigner
+namespace Act.Codes.MsrAdorners
 {
     public class MsrSizeChrome : Control
     {

@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace DiagramDesigner
+namespace Act.Codes.ShapeActions.Adorners
 {
     public class RotateThumb : Thumb
     {

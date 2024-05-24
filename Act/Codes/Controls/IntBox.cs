@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace dastyar.Codes.Controls
+namespace Act.Codes.Controls
 {
     public class IntBox : TextBox
     {

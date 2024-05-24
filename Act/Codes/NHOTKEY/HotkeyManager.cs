@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace NHotkey.Wpf
+namespace Act.Codes.NHOTKEY
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Design",

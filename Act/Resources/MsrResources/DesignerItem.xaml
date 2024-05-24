@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:s="clr-namespace:DiagramDesigner"
-                    >
+                    xmlns:s="clr-namespace:Act.Codes.ShapeActions.Adorners"
+                    xmlns:msrAdorners="clr-namespace:Act.Codes.MsrAdorners">
 
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="SizeChrome.xaml"/>
@@ -24,7 +24,7 @@
             <s:MoveThumb Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
             <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
                               Margin="{TemplateBinding Padding}"/>
-            <s:DesignerItemDecorator x:Name="ItemDecorator"/>
+            <msrAdorners:DesignerItemDecorator x:Name="ItemDecorator"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="Selector.IsSelected" Value="True">

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace dastyar.Codes.Controls
+namespace Act.Codes.Controls
 {
     /// <summary>
     /// Interaction logic for ControllerPanel.xaml

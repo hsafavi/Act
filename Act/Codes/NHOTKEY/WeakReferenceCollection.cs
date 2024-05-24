@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace NHotkey.Wpf
+namespace Act.Codes.NHOTKEY
 {
     class WeakReferenceCollection<T> : IEnumerable<T>
         where T : class

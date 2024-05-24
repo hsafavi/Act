@@ -1,15 +1,13 @@
-﻿using dastyar.Codes.Controls;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using WpfPaint.Codes.Actions;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace dastyar.Codes.Actions
+namespace Act.Codes.Actions
 {
     class TextAction : PaintAction
     {

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace WpfPaint.Codes
+namespace Act.Codes.Actions
 {
 
     class CustomShapes

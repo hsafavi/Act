@@ -2,9 +2,9 @@
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace DiagramDesigner2
+namespace Act.Codes.ShapeActions.Adorners
 {
     public class MoveThumb2 : Thumb
     {

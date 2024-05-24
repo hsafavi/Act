@@ -145,7 +145,6 @@
     <Compile Include="Codes\Actions\PaintShape\PRectangle.cs" />
     <Compile Include="Codes\Actions\PaintShape\PRoundedRectangle.cs" />
     <Compile Include="Codes\Actions\PaintShape\ShapeAbstract.cs" />
-    <Compile Include="Codes\Actions\PasteAction.cs" />
     <Compile Include="Codes\Actions\ShapeAction - Copy.cs" />
     <Compile Include="Codes\Actions\ShapeAction.cs" />
     <Compile Include="Codes\Actions\TextAction.cs" />

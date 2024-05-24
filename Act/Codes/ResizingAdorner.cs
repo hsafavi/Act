@@ -4,9 +4,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using WpfPaint.Codes.Controls;
+using Act.Codes.Controls;
 
-namespace adorners
+namespace Act.Codes
 {
     public class ResizingAdorner : Adorner
     {

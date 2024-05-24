@@ -1,11 +1,9 @@
-﻿
-using dastyar.Codes.Actions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace dastyar.Codes.Controls
+namespace Act.Codes.Controls
 {
     /// <summary>
     /// Interaction logic for ControllerPanel.xaml

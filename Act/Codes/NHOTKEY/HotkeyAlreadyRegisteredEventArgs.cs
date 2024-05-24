@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NHotkey.Wpf
+namespace Act.Codes.NHOTKEY
 {
     public class HotkeyAlreadyRegisteredEventArgs : EventArgs
     {
