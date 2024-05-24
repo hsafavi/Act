@@ -34,7 +34,7 @@
                    VerticalAlignment="Top">
 
             <Run FlowDirection="RightToLeft"
-                 Text="این نرم افزار برای کمک در تدریس رایانه ای مطالب با فراهم کردن امکان نوشتن متن و کشیدن شکل روی صفحه نمایش است" />
+                 Text="این نرم افزار برای کمک در تدریس رایانه ای مطالب با فراهم کردن امکان نوشتن متن و استفاده از شکل های متنوع روی صفحه نمایش است" />
 
         </TextBlock>
         <Ellipse HorizontalAlignment="Right" x:Name="CloseBtn" Height="25.844" Margin="0,0,30.38,39.363" Stroke="Black"
